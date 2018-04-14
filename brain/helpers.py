@@ -107,6 +107,14 @@ def loadDataset(csvfile):
 
     imgdata2 = imgdata[:, :].astype(np.float32)
     labels = np.transpose(labels)[0]
+    labels_copy = np.copy(labels)
+
+    whitelist = [0, 1, 2, 6];
+    index = 0
+    for type in labels_copy:
+        print(type, type in whitelist)
+        np.delete(labels, index, 0)
+        index += 1
 
     return (imgdata2, labels)
 
