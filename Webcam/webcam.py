@@ -1,17 +1,24 @@
+import argparse
 import cv2
 
 class Webcam:
+    def __init__(self, cameraNum):
+        self.cam = cv2.VideoCapture(cameraNum)
+
     def takePicture(self):
-        cam = cv2.VideoCapture(0)
-        retval, frame = cam.read()
+        retval, frame = self.cam.read()
         if retval != True:
             raise ValueError("Can't read frame")
-
-        cv2.imwrite('img2.png', frame)
-        cv2.imshow("img1", frame)
-        cv2.waitKey()
         return frame
 
 
-cam = Webcam();
-cam.takePicture();
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser("Test if camera works module")
+
+    parser.add_argument('-c', '--camera', help='Use this if you have a integrated camera', action='store_true')
+
+    args = parser.parse_args()
+    
+    cam = Webcam(1) if args.camera else Webcam(0)
+    while True:
+        cam.takePicture()
