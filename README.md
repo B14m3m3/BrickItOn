@@ -15,6 +15,7 @@ Install dependencies:
 ```
 pip install tensorflow
 pip install pillow
+pip install numpy
 ```
 
 Then unzip dataset file into tensorflow/dataset/
