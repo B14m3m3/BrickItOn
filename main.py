@@ -1,6 +1,7 @@
 import webcam as wb
 import brain
 from input import *
+import argparse
 
 class Program:
     def __init__(self):
@@ -9,6 +10,7 @@ class Program:
 
     def train(self):
         print("Training...")
+        brain.tensor_train.Trainer().run()
 
     def fetchNextCommand(self):
         imgdata = self.feeder.next()
@@ -32,5 +34,13 @@ class Program:
                 self.commandRobot(command)
 
 # Parse commands args
+parser = argparse.ArgumentParser()
+parser.add_argument("-train", help="Start training the tensorflow model", action="store_true")
+args = parser.parse_args()
+
 prg = Program()
-prg.run()
+
+if args.train:
+    prg.train()
+else:
+    prg.run()
