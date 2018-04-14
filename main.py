@@ -1,11 +1,11 @@
 import webcam as wb
-import brain.detector as dect
+import brain
 from input import *
 
 class Program:
     def __init__(self):
         self.feeder = wb.mock.Mock() #wb.hand.Hand() for webcam
-        self.detector = dect.Detector()
+        self.detector = brain.mock.Mock()
 
     def train(self):
         print("Training...")
