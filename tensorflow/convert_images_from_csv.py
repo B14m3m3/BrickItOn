@@ -2,14 +2,15 @@ from PIL import Image
 import os
 
 class Converter:
-    def __init__(self, filename, is_train, limit = 0):
+    def __init__(self, filename, is_train, limit = 0, targetPath = "images"):
         self.filename = filename
         self.is_train = is_train
         self.limit = limit
+        self.targetPath = targetPath
 
         # Create target directory
-        if not os.path.isdir("images"):
-            os.makedirs("images")
+        if not os.path.isdir(self.targetPath):
+            os.makedirs(self.targetPath)
 
     def convert(self):
         self.counter = -1
@@ -36,7 +37,7 @@ class Converter:
                 y += 1
 
         char = chr(int(signal) + 97)
-        img.save("images/" + str(self.counter) + "_signal_" + char + ".bmp")
+        img.save(os.path.join(self.targetPath, str(self.counter) + "_signal_" + char + ".bmp"))
 
-conv = Converter("dataset/sign_mnist_test.csv", True, 10)
+conv = Converter("dataset/sign_mnist_test.csv", True, 100, targetPath="images/train")
 conv.convert()
