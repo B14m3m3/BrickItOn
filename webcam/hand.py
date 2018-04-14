@@ -13,7 +13,9 @@ class Hand(Feeder):
             frame = cam.takePicture()
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
             res_blue, mask_blue = self.blue_image(frame, hsv)
-            cv2.imshow('blurred', mask_blue)
+            cv2.imshow('blurred', res_blue)
+
+
 
             edges = cv2.Canny(res_blue, 100, 200)
             _, contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -48,8 +50,8 @@ class Hand(Feeder):
 
     def blue_image(self, frame, hsv):
         # define range of blue color in HSV
-        lower_blue = np.array([60, 80, 50])
-        upper_blue = np.array([120, 255, 255])
+        lower_blue = np.array([80, 80, 50])
+        upper_blue = np.array([100, 255, 255])
         # Threshold the HSV image to get only blue colors
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
         gaussian_mask = cv2.GaussianBlur(mask, (55, 55), 0)
