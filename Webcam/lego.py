@@ -2,11 +2,7 @@ import webcam as wb
 import numpy as np
 import cv2
 
-
-
-
 value = (5,5)
-
 
 def picture_loop():
     cam = wb.Webcam()
