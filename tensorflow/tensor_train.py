@@ -5,7 +5,7 @@ import os, glob
 import numpy as np
 import tensorflow as tf
 
-#tf.logging.set_verbosity(tf.logging.INFO)
+tf.logging.set_verbosity(tf.logging.INFO)
 
 def cnn_model_fn(features, labels, mode):
 
@@ -113,7 +113,7 @@ def loadDataset(csvfile):
 
     return (imgdata2, labels)
 
-def main(unused_argv):
+def main(argv):
 
     (train_data, train_labels) = loadDataset("dataset/sign_mnist_train.csv")
     (eval_data, eval_labels) = loadDataset("dataset/sign_mnist_test.csv")
@@ -149,12 +149,10 @@ def main(unused_argv):
         num_epochs=1,
         shuffle=False)
 
-    for i in range(1,50):
-        #print("-------------------------------------- Training run " + str(i) + " ---------------------------------------------")
-
+    for i in range(1000):
         mnist_classifier.train(
             input_fn=train_input_fn,
-            steps=100,
+            steps=1000,
             hooks=[logging_hook])
 
         eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
