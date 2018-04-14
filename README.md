@@ -10,6 +10,12 @@ cp config_sample.py config.py
 nano config.py
 ```
 
+### Tensorflow
+Install dependencies:
+```
+pip install tensorflow
+pip install pillow
+```
 
 ### Webcam
 Install OpenCV:
