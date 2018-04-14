@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 import tensorflow as tf
 from brain.helpers import *
+import os
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -16,6 +17,8 @@ class Trainer:
         print("Training data: ", len(train_data))
         print("Eval data: ", len(eval_data))
         #print("Predict data: ", len(predict_data))
+
+        #os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
         mnist_classifier = getEstimator()
 

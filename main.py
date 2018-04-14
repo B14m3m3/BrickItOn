@@ -3,10 +3,12 @@ import brain
 from input import *
 import argparse
 
+
 class Program:
     def __init__(self):
-        self.feeder = wb.mock.Mock() #wb.hand.Hand() for webcam
-        self.detector = brain.detector.Detector()
+        # Use command line arguments to decide if we should mock
+        self.feeder = (wb.mock.Mock() if flags.mock_camera else wb.hand.Hand())
+        self.detector = (brain.mock.Mock() if flags.mock_brain else brain.detector.Detector())
 
     def train(self):
         print("Training...")
@@ -30,17 +32,20 @@ class Program:
             command = self.fetchNextCommand()
             print(command)
 
-            if(command != None):
+            if (command != None):
                 self.commandRobot(command)
+
 
 # Parse commands args
 parser = argparse.ArgumentParser()
 parser.add_argument("-train", help="Start training the tensorflow model", action="store_true")
-args = parser.parse_args()
+parser.add_argument("-mock-camera", help="Mock data from camera", action="store_true")
+parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
+flags = parser.parse_args()
 
 prg = Program()
 
-if args.train:
+if flags.train:
     prg.train()
 else:
     prg.run()
