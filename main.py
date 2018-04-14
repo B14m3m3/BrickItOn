@@ -1,17 +1,17 @@
-from Webcam.feeder import *
-from tensorflow.detector import *
+import webcam.hand as hand
+import brain.detector as dect
 from input import *
 
 class Program:
     def __init__(self):
-        self.feeder = Feeder()
-        self.detector = Detector()
+        self.feeder = hand.Hand()
+        self.detector = dect.Detector()
 
     def train(self):
         print("Training...")
 
     def fetchNextCommand(self):
-        imgdata = self.feeder.next()
+        imgdata = self.feeder.next().flatten()
         command = self.detector.guess(imgdata)
         return command
 
@@ -22,6 +22,8 @@ class Program:
     def run(self):
         while True:
             command = self.fetchNextCommand()
+            print(command)
+
             if(command != None):
                 self.commandRobot(command)
 
