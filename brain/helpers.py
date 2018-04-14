@@ -66,7 +66,7 @@ def cnn_model_fn(features, labels, mode):
     # Logits layer
     # Input Tensor Shape: [batch_size, 1024]
     # Output Tensor Shape: [batch_size, 10]
-    logits = tf.layers.dense(inputs=dropout, units=25)
+    logits = tf.layers.dense(inputs=dropout, units=4)
 
     predictions = {
         # Generate predictions (for PREDICT and EVAL mode)
@@ -107,14 +107,6 @@ def loadDataset(csvfile):
 
     imgdata2 = imgdata[:, :].astype(np.float32)
     labels = np.transpose(labels)[0]
-    labels_copy = np.copy(labels)
-
-    whitelist = [0, 1, 2, 6];
-    index = 0
-    for type in labels_copy:
-        print(type, type in whitelist)
-        np.delete(labels, index, 0)
-        index += 1
 
     return (imgdata2, labels)
 
@@ -122,7 +114,7 @@ def getEstimator():
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn,
-        model_dir="data/models/model2"
+        model_dir="data/models/model_abcg"
     )
 
     return mnist_classifier
