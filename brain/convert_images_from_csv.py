@@ -7,7 +7,7 @@ class Converter:
         self.is_train = is_train
         self.limit = limit
         self.targetPath = targetPath
-        self.whitelist = [0, 1, 2, 6]
+        self.whitelist = []
 
         # Create target directory
         if not os.path.isdir(self.targetPath):
@@ -44,5 +44,5 @@ class Converter:
         char = chr(int(signal) + 97)
         img.save(os.path.join(self.targetPath, str(self.counter) + "_signal_" + char + ".bmp"))
 
-conv = Converter("dataset/sign_mnist_train.csv", True, 1000000, targetPath="images/train")
+conv = Converter("dataset/sign_mnist_test_abcg.csv", True, 1000000, targetPath="images/test_abcg")
 conv.convert()
