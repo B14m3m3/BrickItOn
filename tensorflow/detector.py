@@ -1,6 +1,7 @@
 from helpers import *
 import tensorflow as tf
 import numpy as np
+import input as inp
 
 class Detector:
     def __init__(self):
@@ -26,7 +27,7 @@ class Detector:
 
         # Print all:
         #print("All predictions: ", predicted_classes)
-        return predicted_classes[0]
+        return inp.Input(predicted_classes[0])
 
 
 
