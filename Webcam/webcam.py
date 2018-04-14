@@ -1,5 +1,7 @@
 import argparse
 import cv2
+from config import *
+
 
 class Webcam:
     def __init__(self, cameraNum):
