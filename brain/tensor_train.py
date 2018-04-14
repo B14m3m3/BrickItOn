@@ -10,8 +10,7 @@ class Trainer:
     def run(self):
         (train_data, train_labels) = loadDataset("brain/dataset/sign_mnist_train_abcg.csv")
         (eval_data, eval_labels) = loadDataset("brain/dataset/sign_mnist_test_abcg.csv")
-        assert not np.any(np.isnan(train_data))
-        assert not np.any(np.isnan(train_labels))
+
         #(predict_data, predict_labels) = loadDataset("brain/dataset/sign_mnist_predict.csv")
 
         print("Training data: ", len(train_data))
