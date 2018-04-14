@@ -5,7 +5,7 @@ import os, glob
 import numpy as np
 import tensorflow as tf
 
-tf.logging.set_verbosity(tf.logging.INFO)
+#tf.logging.set_verbosity(tf.logging.INFO)
 
 def cnn_model_fn(features, labels, mode):
 
@@ -79,7 +79,6 @@ def cnn_model_fn(features, labels, mode):
         "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
     }
 
-    print("Logits: ", logits);
     if mode == tf.estimator.ModeKeys.PREDICT:
         return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
 
@@ -125,13 +124,12 @@ def main(unused_argv):
 
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir="/tmp/mnist_convnet_model3")
+        model_fn=cnn_model_fn, model_dir="/tmp/mnist_convnet_model4")
 
     # Set up logging for predictions
     # Log the values in the "Softmax" tensor with label "probabilities"
     tensors_to_log = {
         "probabilities": "softmax_tensor",
-        "accuracy"
     }
     logging_hook = tf.train.LoggingTensorHook(
         tensors=tensors_to_log, every_n_iter=50)
@@ -143,10 +141,6 @@ def main(unused_argv):
         batch_size=100,
         num_epochs=None,
         shuffle=True)
-    mnist_classifier.train(
-        input_fn=train_input_fn,
-        steps=20000,
-        hooks=[logging_hook])
 
     # Evaluate the model and print results
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -154,8 +148,17 @@ def main(unused_argv):
         y=eval_labels,
         num_epochs=1,
         shuffle=False)
-    eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
-    print(eval_results)
+
+    for i in range(1,50):
+        #print("-------------------------------------- Training run " + str(i) + " ---------------------------------------------")
+
+        mnist_classifier.train(
+            input_fn=train_input_fn,
+            steps=100,
+            hooks=[logging_hook])
+
+        eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
+        print(eval_results)
 
 
 tf.app.run()
