@@ -25,7 +25,7 @@ def picture_loop():
         
         edges = cv2.Canny(res, 90, 200)
         _, contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(frame, contours, -1, (0,255,0), 3)
+        cv2.drawContours(frame, contours, -1, (0,255,0), 1)
         cv2.imshow('frame',frame)
 
         pressed = cv2.waitKey(1)
