@@ -4,8 +4,8 @@ from config import *
 
 
 class Webcam:
-    def __init__(self, cameraNum):
-        self.cam = cv2.VideoCapture(cameraNum)
+    def __init__(self):
+        self.cam = cv2.VideoCapture(Config.webcam)
 
     def takePicture(self):
         retval, frame = self.cam.read()
@@ -13,14 +13,12 @@ class Webcam:
             raise ValueError("Can't read frame")
         return frame
 
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("Test if camera works module")
-
-    parser.add_argument('-c', '--camera', help='Use this if you have a integrated camera', action='store_true')
-
-    args = parser.parse_args()
+    print("Testing if the camera module works")
     
-    cam = Webcam(1) if args.camera else Webcam(0)
+    cam = Webcam()
     while True:
-        cam.takePicture()
+        frame = cam.takePicture()
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
