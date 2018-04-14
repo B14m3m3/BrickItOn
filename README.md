@@ -17,6 +17,8 @@ pip install tensorflow
 pip install pillow
 ```
 
+Then unzip dataset file into tensorflow/dataset/
+
 ### Webcam
 Install OpenCV:
 ```
