@@ -8,10 +8,20 @@ tf.logging.set_verbosity(tf.logging.INFO)
 
 class Trainer:
     def run(self):
-        (train_data, train_labels) = loadDataset("brain/dataset/sign_mnist_train.csv")
-        (eval_data, eval_labels) = loadDataset("brain/dataset/sign_mnist_test.csv")
-        (predict_data, predict_labels) = loadDataset("brain/dataset/sign_mnist_predict.csv")
+        (train_data, train_labels) = loadDataset("brain/dataset/sign_mnist_train_small.csv")
+        #(eval_data, eval_labels) = loadDataset("brain/dataset/sign_mnist_test.csv")
+        #(predict_data, predict_labels) = loadDataset("brain/dataset/sign_mnist_predict.csv")
 
+        print(train_data)
+
+        whitelist = [0, 1, 2, 6];
+        print("After")
+
+
+
+        #train_data = train_data[train_data[:, 0] in whitelist]
+        #print(train_data)
+        quit()
         print("Training data: ", len(train_data))
         print("Eval data: ", len(eval_data))
         print("Predict data: ", len(predict_data))
