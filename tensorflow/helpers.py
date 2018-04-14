@@ -114,7 +114,7 @@ def getEstimator():
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn,
-        model_dir="/tmp/mnist_convnet_model4"
+        model_dir="data/models/learn_0.001_drop_0.4"
     )
 
     return mnist_classifier
