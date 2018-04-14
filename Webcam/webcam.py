@@ -1,22 +1,24 @@
+import argparse
 import cv2
 from config import *
 
 
 class Webcam:
     def __init__(self):
-        print("Using webcam number", Config.webcam)
+        self.cam = cv2.VideoCapture(Config.webcam)
 
     def takePicture(self):
-        cam = cv2.VideoCapture(Config.webcam)
-        retval, frame = cam.read()
+        retval, frame = self.cam.read()
         if retval != True:
             raise ValueError("Can't read frame")
-
-        # cv2.imwrite('img2.png', frame)
-        cv2.imshow("img1", frame)
-        cv2.waitKey()
         return frame
 
-
-cam = Webcam();
-cam.takePicture();
+if __name__ == "__main__":
+    print("Testing if the camera module works")
+    
+    cam = Webcam()
+    while True:
+        frame = cam.takePicture()
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
