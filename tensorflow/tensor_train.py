@@ -100,6 +100,7 @@ def cnn_model_fn(features, labels, mode):
     eval_metric_ops = {
         "accuracy": tf.metrics.accuracy(
             labels=labels, predictions=predictions["classes"])}
+
     return tf.estimator.EstimatorSpec(
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
@@ -128,7 +129,10 @@ def main(unused_argv):
 
     # Set up logging for predictions
     # Log the values in the "Softmax" tensor with label "probabilities"
-    tensors_to_log = {"probabilities": "softmax_tensor"}
+    tensors_to_log = {
+        "probabilities": "softmax_tensor",
+        "accuracy"
+    }
     logging_hook = tf.train.LoggingTensorHook(
         tensors=tensors_to_log, every_n_iter=50)
 
