@@ -13,7 +13,7 @@ class Detector:
         return self.guess(predict_data[0])
 
     def guess(self, imagepixels):
-
+        print("Hello")
         imagepixels = np.asarray([imagepixels], dtype=np.float32)
 
         # Predict input

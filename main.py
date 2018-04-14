@@ -6,7 +6,7 @@ import argparse
 class Program:
     def __init__(self):
         self.feeder = wb.mock.Mock() #wb.hand.Hand() for webcam
-        self.detector = brain.mock.Mock()
+        self.detector = brain.detector.Detector()
 
     def train(self):
         print("Training...")
