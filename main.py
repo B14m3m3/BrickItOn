@@ -62,7 +62,7 @@ prg = Program()
 if flags.train:
     prg.train()
 elif flags.gui:
-    gui.gui.GUI.show()
+    gui.GUI.show()
 elif flags.validate:
     prg.guess()
 else:
