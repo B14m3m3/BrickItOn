@@ -7,6 +7,7 @@ class Connector:
         self.s = socket.socket()
         self.s.connect((address, port))
         print("Connection established")
+        
 
     def write(self, msg):
         print("Sending to robot: ", msg)
@@ -20,7 +21,7 @@ class Connector:
 
     def turn_right(self):
         self.write("right")
-    
+
     def turn_left(self):
         self.write("left")
 
@@ -28,5 +29,4 @@ class Connector:
         self.write("stop")
 
 if __name__ == '__main__':
-    con = Connector()
-    con.forward()
+    print("don't execute this from the main")
