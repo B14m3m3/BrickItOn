@@ -3,6 +3,8 @@ import tensorflow as tf
 import numpy as np
 import input as inp
 
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 class Detector:
     def __init__(self):
         self.classifier = getEstimator()
@@ -10,10 +12,10 @@ class Detector:
     def guessFromFile(self, filename):
         (predict_data, labels) = loadDataset(filename)
 
-        return self.guess(predict_data[0])
+        for set in predict_data:
+            print(self.guess(set))
 
     def guess(self, imagepixels):
-        print("Hello")
         imagepixels = np.asarray([imagepixels], dtype=np.float32)
 
         # Predict input
@@ -25,11 +27,12 @@ class Detector:
         prediction = self.classifier.predict(input_fn=predict_input_fn)
         predicted_classes = [p["classes"] for p in prediction]
 
+        print("Prediction")
+        print(prediction)
+        for p in prediction:
+            print("P:")
+            print(p)
+
         # Print all:
         print("All predictions: ", predicted_classes)
         return inp.Input(predicted_classes[0])
-
-
-
-#runner = Detector()
-#print("Guess is: ", runner.guessFromFile("dataset/sign_mnist_predict.csv"))

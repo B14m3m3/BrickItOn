@@ -2,6 +2,7 @@ from webcam.feeder import *
 import glob, os
 import PIL as pil
 import numpy as np
+import cv2
 
 class Mock(Feeder):
     def __init__(self):
@@ -23,14 +24,11 @@ class Mock(Feeder):
             return None
 
         file = self.files[self.index]
-        with pil.Image.open(file) as img:
-            w, h = img.size
-            data = []
+        print("Sending file " + file)
 
-            for x in range(w):
-                for y in range(h):
-                    data.append(img.getpixel((x, y)))
+        img = cv2.imread(file)
+
 
         self.index += 1
         self.index = self.index % len(self.files)
-        return np.array(data)
+        return img
