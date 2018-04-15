@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 from webcam.feeder import *
 
+
 class Hand(Feeder):
     def next(self):
         return self.picture_loop(False)

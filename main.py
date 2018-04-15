@@ -2,7 +2,7 @@ import webcam as wb
 import brain
 from input import *
 import argparse
-
+import gui
 
 class Program:
     def __init__(self):
@@ -41,11 +41,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-train", help="Start training the tensorflow model", action="store_true")
 parser.add_argument("-mock-camera", help="Mock data from camera", action="store_true")
 parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
+parser.add_argument("-gui", help="Display GUI", action="store_true")
 flags = parser.parse_args()
 
 prg = Program()
 
 if flags.train:
     prg.train()
+elif flags.gui:
+    gui.gui.GUI.show()
 else:
     prg.run()
