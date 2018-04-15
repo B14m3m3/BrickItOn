@@ -2,13 +2,9 @@ import webcam as wb
 import brain
 from input import *
 import argparse
-<<<<<<< HEAD
 import Communication as comm
 import game
-
-=======
 import gui
->>>>>>> 25f80ab26d857fbd28feb775b8ab1ade98efbfaf
 
 class Program:
     def __init__(self):
