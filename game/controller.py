@@ -5,7 +5,6 @@ class GameController:
         self.moves = [0, 0]
 
     def onInput(self, cmd):
-        print("OnInput reached!")
         if cmd.isForward():
             self.con.forward()
         elif cmd.isBack():
@@ -24,7 +23,5 @@ class GameController:
     def getScore(self, player):
         return (self.moves[player] if player < len(self.moves) else 0)
 
-    def printStats(self):
-        print(self.moves)
-        #for p in self.moves:
-        #    print("Player ", p, self.moves[p])
+    def restartGame(self):
+        self.moves = [0,0];

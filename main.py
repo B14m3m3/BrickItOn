@@ -39,8 +39,6 @@ class Program:
         return command
 
     def processFromGUI(self, imgdata):
-        print("processFromGUI: ")
-        print(imgdata)
         if imgdata is None:
             return None
 
