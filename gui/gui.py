@@ -52,7 +52,7 @@ class GUI:
         self.player2_score.grid(row=1, column=1)
 
         # Control buttons setup
-        self.cap_gest_button = Button(self.control_window, text='capture gesture', justify='left')
+        self.cap_gest_button = Button(self.control_window, text='capture gesture')
         self.cap_gest_button.pack(side='left', padx=10)
         #self.start_button_label = Label(self.instructions_window)
         #self.start_button_label.grid(row=0, column=0, sticky='w')
@@ -60,7 +60,7 @@ class GUI:
         self.start_button.pack(side='left', padx=10)
         #self.next_button_label = Label(self.instructions_window)
         #self.next_button_label.grid(row=0, column=1)
-        self.next_button = Button(self.control_window, text='next', justify='center')
+        self.next_button = Button(self.control_window, text='next')
         self.next_button.pack(side='left', padx=10)
 
         '''
