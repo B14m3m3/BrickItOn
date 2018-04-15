@@ -5,7 +5,7 @@ import time
 import Communication.Connector as con
 
 value = (5,5)
-connection = con.Connector("a")
+connection = con.Connector()
 
 def picture_loop():
     cam = wb.Webcam()

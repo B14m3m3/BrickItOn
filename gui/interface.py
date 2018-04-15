@@ -49,16 +49,19 @@ class Interface:
         self.greet_button = Button(self.master, text="Greet", command=self.capture)
         self.greet_button.grid(row=2)
 
-        '''
-        self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.pack()
-        '''
+        self.close_button = Button(master, text="Close", command=self.switchPlayer)
+        self.close_button.grid(row=3)
+
         self.spawnThreads()
 
     def spawnThreads(self):
         # Spawn thread to generate images
         threading.Thread(target=self.worker).start()
         self.master.after(50,self.periodicLoop)
+
+    def switchPlayer(self):
+        if(self.app.game is not None):
+            self.app.game.switchPlayer()
 
     def capture(self):
         print("Taking image")
@@ -96,6 +99,10 @@ class Interface:
         try:
             self.imgtk = self.queue.get(0)
             self.cam.configure(image=self.imgtk)
+
+            if self.app.game is not None:
+                self.instructions.configure(text=self.app.game.getScore(0))
+                self.control.configure(text=self.app.game.getScore(1))
         except queue.Empty:
             pass
 
@@ -104,7 +111,7 @@ class Interface:
     def closing(self):
         self.stop = True
         print("Stopping")
-        self.master.destroy()
+        self.master.quit()
 
     @staticmethod
     def show(app):

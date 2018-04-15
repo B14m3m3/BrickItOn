@@ -17,9 +17,12 @@ class GameController:
 
         self.moves[self.player] += 1
 
-    def nextPlayer(self):
-        self.player += 1
+    def switchPlayer(self):
+        self.player = 1 - self.player
         self.moves[self.player] = 0
+
+    def getScore(self, player):
+        return (self.moves[player] if player < len(self.moves) else 0)
 
     def printStats(self):
         print(self.moves)
