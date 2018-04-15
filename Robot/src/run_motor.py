@@ -3,12 +3,14 @@ import sys
 import time
 import ev3dev.ev3 as ev3
 
+print(":: Starting program :: \n")
+
 ma = ev3.LargeMotor('outA')
 mb = ev3.LargeMotor('outD')
 c = None
 
+print(":: Motors ready :: \n")
 
-print(":: Starting program :: \n")
 
 
 def not_supported(*args, **kwargs):
@@ -65,15 +67,21 @@ def initializeServer():
     s.bind((host, port))  # Bind to the port
     print(host)
     s.listen(5)  # Now wait for client connection.
-    print("Listening for clients")
-    c, addr = s.accept()  # Establish connection with client.
-    print("Client connected, waiting for input")
+
+    while True:
+        print("Listening for client")
+        c, addr = s.accept()  # Establish connection with client.
+        print("Client connected, waiting for input")
+        handleClient(c)
+
+def handleClient(c):
     while True:
         try:
             argument = c.recv(1024)
             switch(argument.decode())
         except:
             print("Unexpected error:", sys.exc_info()[0])
-            c.close()  # Close the connection
+            break
+    c.close()
 
 initializeServer()

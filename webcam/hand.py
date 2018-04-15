@@ -5,6 +5,7 @@ import cv2
 import sys
 from webcam.feeder import *
 
+
 class Hand(Feeder):
     def next(self):
         return self.picture_loop(False)
