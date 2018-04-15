@@ -14,6 +14,12 @@ class Program:
         print("Training...")
         brain.tensor_train.Trainer().run()
 
+    def guess(self):
+        filename = "brain/dataset/sign_mnist_test_abcg_small.csv"
+        print("Guessing using file", filename)
+        print("Result is: ", self.detector.guessFromFile(filename))
+
+
     def fetchNextCommand(self):
         imgdata = self.feeder.next()
 
@@ -39,6 +45,7 @@ class Program:
 # Parse commands args
 parser = argparse.ArgumentParser()
 parser.add_argument("-train", help="Start training the tensorflow model", action="store_true")
+parser.add_argument("-validate", help="Run validation tests on hardcoded validation set", action="store_true")
 parser.add_argument("-mock-camera", help="Mock data from camera", action="store_true")
 parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
 parser.add_argument("-gui", help="Display GUI", action="store_true")
@@ -50,5 +57,7 @@ if flags.train:
     prg.train()
 elif flags.gui:
     gui.gui.GUI.show()
+elif flags.validate:
+    prg.guess()
 else:
     prg.run()

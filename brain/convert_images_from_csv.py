@@ -44,5 +44,5 @@ class Converter:
         char = chr(int(signal) + 97)
         img.save(os.path.join(self.targetPath, str(self.counter) + "_signal_" + char + ".bmp"))
 
-conv = Converter("dataset/sign_mnist_test_abcg.csv", True, 1000000, targetPath="images/test_abcg")
+conv = Converter("dataset/sign_mnist_test_abcg_small.csv", True, 1000000, targetPath="images/test_abcg")
 conv.convert()

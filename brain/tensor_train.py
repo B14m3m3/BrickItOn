@@ -5,7 +5,7 @@ import tensorflow as tf
 from brain.helpers import *
 import os
 
-tf.logging.set_verbosity(tf.logging.INFO)
+#tf.logging.set_verbosity(tf.logging.INFO)
 
 class Trainer:
     def run(self):
@@ -48,7 +48,7 @@ class Trainer:
         for i in range(1000):
             mnist_classifier.train(
                 input_fn=train_input_fn,
-                steps=1000,
+                steps=100,
                 hooks=[logging_hook])
 
             eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
