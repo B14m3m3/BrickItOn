@@ -9,6 +9,7 @@ class Connector:
         print("Connection established")
 
     def write(self, msg):
+        print("Sending to robot: ", msg)
         self.s.send(msg.encode())
 
     def forward(self):

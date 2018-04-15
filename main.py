@@ -13,7 +13,7 @@ class Program:
         self.detector = (brain.mock.Mock() if flags.mock_brain else brain.detector.Detector())
 
         # Setup game
-        connector = comm.Connector.Connector("192.168.0.1")
+        connector = comm.Connector.Connector(flags.ip, flags.port)
         self.game = game.controller.GameController(connector)
 
     def train(self):
@@ -53,10 +53,12 @@ parser.add_argument("-train", help="Start training the tensorflow model", action
 parser.add_argument("-validate", help="Run validation tests on hardcoded validation set", action="store_true")
 parser.add_argument("-mock-camera", help="Mock data from camera", action="store_true")
 parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
+parser.add_argument('-ip', help='IP address of robot', default="192.168.0.1")
+parser.add_argument('-port', type=int, help='Port of robot', default=44446)
+
 flags = parser.parse_args()
 
 prg = Program()
-
 if flags.train:
     prg.train()
 elif flags.validate:

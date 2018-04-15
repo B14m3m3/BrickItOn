@@ -36,8 +36,10 @@ class Detector:
             print("B: {0:.2f}".format(p["probabilities"][1]))
             print("C: {0:.2f}".format(p["probabilities"][2]))
             print("D: {0:.2f}".format(p["probabilities"][3]))
+            print("")
 
-        print("")
+            return inp.Input(char)
+
 
         # Print all:
         #print("All predictions: ", predicted_classes)

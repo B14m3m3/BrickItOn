@@ -4,7 +4,7 @@ class Input:
         self.char = chr(97 + charIndex)
 
     def isRight(self):
-        return self.char == 'g'
+        return self.char == 'd'
 
     def isLeft(self):
         return self.char == 'c'
