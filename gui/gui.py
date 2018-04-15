@@ -10,6 +10,7 @@ class GUI:
     def __init__(self, master):
         self.master = master
         master.title("Brick-It-On!")
+        master.config(background="#FFFFFF")
 
         # Setup camera
         cap = cv2.VideoCapture(1)
@@ -25,8 +26,10 @@ class GUI:
         self.cam_window.grid(row=0, column=0)
 
         # Top-right window = instructions
-        self.instructions_window = Label(master, text="Instructions")
-        self.instructions_window.grid(row=0, column=1)
+        nav_img = ImageTk.PhotoImage(Image.open('nav.png'))
+        self.instructions_window = Label(master, text="Instructions", image=nav_img)
+        self.instructions_window.imgtk = nav_img
+        self.instructions_window.grid(row=0, column=1, padx=50)
 
         # Bot-left window = player stats
         self.stats_window = Label(master)
@@ -37,26 +40,28 @@ class GUI:
         self.control_window.grid(row=1, column=1)
 
         # Player stats setup
-        self.player1_label = Label(self.stats_window, text='Player1')
-        self.player1_label.grid(row=0, column=0)
-        self.player1_score = Label(self.stats_window, text='Player1 score')
+        self.player_frame = Frame(self.stats_window)
+        self.player_frame.grid(row=0, column=0)
+        self.player1_label = Label(self.player_frame, text='Player 1 score:', font=25)
+        self.player1_label.grid(row=0, column=0, sticky='W', padx=75, pady=20)
+        self.player1_score = Label(self.player_frame, text='Player1 score placeholder')
         self.player1_score.grid(row=1, column=0)
-        self.player2_label = Label(self.stats_window, text='Player2')
-        self.player2_label.grid(row=0, column=1)
-        self.player2_score = Label(self.stats_window, text='Player2 score')
+        self.player2_label = Label(self.player_frame, text='Player 2 score:', font=25)
+        self.player2_label.grid(row=0, column=1, sticky='E', padx=75, pady=10)
+        self.player2_score = Label(self.player_frame, text='Player2 score placeholder')
         self.player2_score.grid(row=1, column=1)
 
         # Control buttons setup
+        self.cap_gest_button = Button(self.control_window, text='capture gesture', justify='left')
+        self.cap_gest_button.pack(side='left', padx=10)
         #self.start_button_label = Label(self.instructions_window)
         #self.start_button_label.grid(row=0, column=0, sticky='w')
-        self.start_button = Button(self.control_window, text='start', justify='right')
-        self.start_button.pack()
+        self.start_button = Button(self.control_window, text='start')
+        self.start_button.pack(side='left', padx=10)
         #self.next_button_label = Label(self.instructions_window)
         #self.next_button_label.grid(row=0, column=1)
         self.next_button = Button(self.control_window, text='next', justify='center')
-        self.next_button.pack()
-        self.cap_gest_button = Button(self.control_window, text='capture gesture', justify='left')
-        self.cap_gest_button.pack()
+        self.next_button.pack(side='left', padx=10)
 
         '''
         self.greet_button = Button(master, text="Greet", command=self.greet)
