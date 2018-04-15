@@ -33,7 +33,7 @@ class ElementBuilder:
         window.control_window.grid(row=0, column=1)
 
         # Player stats setup
-        window.player_frame = Frame(window.stats_window,)
+        window.player_frame = Frame(window.stats_window)
         window.player_frame.grid(row=0, column=0)
         window.player1_label = Label(window.player_frame, text='Player 1 score:', font=25)
         window.player1_label.grid(row=0, column=0, sticky='W', padx=75, pady=20)
@@ -45,15 +45,20 @@ class ElementBuilder:
         window.player2_score.grid(row=1, column=1)
 
         # Control buttons setup
-        window.cap_gest_button = Button(window.control_window, text='capture gesture')
-        window.cap_gest_button.pack(side='left', padx=10, )
+        window.button_frame = Frame(window.control_window)
+
+        #window.cap_gest_button = Button(window.control_window, text='capture gesture')
+        #window.cap_gest_button.pack(side='left', padx=10)
         #window.start_button_label = Label(window.instructions_window)
         #window.start_button_label.grid(row=0, column=0, sticky='w')
-        #window.start_button = Button(window.control_window, text='start')
+        window.start_button_image = ImageTk.PhotoImage(Image.open("gui/restart.png"))
+        window.start_button = Button(window.button_frame, image=window.start_button_image)
+        window.start_button.pack()
+
         #window.start_button.pack(side='left', padx=10)
         #window.next_button_label = Label(window.instructions_window)
         #window.next_button_label.grid(row=0, column=1)
-        self.tmpI = Image.open("gui/next.png")
-        self.imgtk2 = ImageTk.PhotoImage(file="gui/next.png")
-        window.next_button = Button(window.control_window, image=self.imgtk2, justify=RIGHT)
-        window.next_button.pack(side='left', padx=10)
+        window.next_button_image = ImageTk.PhotoImage(Image.open("gui/next.png"))
+        window.next_button = Button(window.button_frame, image=window.next_button_image)
+        window.next_button.pack()
+        window.button_frame.pack()

@@ -102,7 +102,7 @@ class Interface:
         root.protocol("WM_DELETE_WINDOW", my_gui.quit)
         root.mainloop()
         my_gui.stop.set()
-        print("Stoppig root.mainloop()...")
+        print("Stopping root.mainloop()...")
 
 
 if __name__ == "__main__":
