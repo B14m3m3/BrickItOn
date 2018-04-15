@@ -6,24 +6,29 @@ from webcam.feeder import *
 
 
 class Hand(Feeder):
+    def __init__(self):
+        self.cam = wb.Webcam()
     def next(self):
         return self.picture_loop(False)
 
+    def picture(self):
+        frame = self.cam.takePicture()
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        res_blue, mask_blue = self.blue_image(frame, hsv)
+
+        #cv2.imshow('mask', mask_blue)
+        edges = cv2.Canny(res_blue, 100, 200)
+        _, contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        filtered_countours = [contour for contour in contours if cv2.contourArea(contour) > 150]
+        filtered_countours2 = [cv2.convexHull(c) for c in filtered_countours]
+
+        cv2.drawContours(frame, filtered_countours2, -1, (0, 255, 0), 1)
+        return [frame, filtered_countours2]
+
     def picture_loop(self, endless = True):
-        cam = wb.Webcam()
         while True:
-            frame = cam.takePicture()
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            res_blue, mask_blue = self.blue_image(frame, hsv)
-
-            cv2.imshow('mask', mask_blue)
-            edges = cv2.Canny(res_blue, 100, 200)
-            _, contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-            filtered_countours = [contour for contour in contours if cv2.contourArea(contour) > 150]
-            filtered_countours2 = [cv2.convexHull(c) for c in filtered_countours]
-
-            cv2.drawContours(frame, filtered_countours2, -1, (0, 255, 0), 1)
+            frame, filtered_countours2 = self.picture()
             # cv2.imshow('filtered_contours', frame)
 
             cv2.imshow('current ', frame)
@@ -38,12 +43,16 @@ class Hand(Feeder):
 
 
     def crop_img(self, img, contour2):
+        crop = None
         mask = np.zeros(img.shape, np.uint8)
         for c in contour2:
             (x, y, w, h) = cv2.boundingRect(c)
             crop = img[y:y + h, x:x + w]
             #cv2.rectangle(mask, (x, y), (x + w, y + h), (255, 0, 255), -1)
         #res = cv2.bitwise_and(img, mask)
+
+        if crop is None:
+            return None
 
         img_grey = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
         resized_img = cv2.resize(img_grey, (28, 28))
