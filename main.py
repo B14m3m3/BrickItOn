@@ -66,8 +66,8 @@ parser.add_argument("-mock-camera", help="Mock data from camera", action="store_
 parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
 parser.add_argument('-ip', help='IP address of robot', default="192.168.0.1")
 parser.add_argument('-port', type=int, help='Port of robot', default=44446)
-parser.add_argument("-gui", help="Display GUI", action="store_true")
-parser.add_argument("-game", help="Run the game", action="store_true")
+parser.add_argument("-gui", help="Display GUI", action="store_true", default=True)
+parser.add_argument("-game", help="Run the game", action="store_true", default=True)
 flags = parser.parse_args()
 
 prg = Program()

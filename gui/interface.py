@@ -21,12 +21,14 @@ class Interface:
         self.video = vid.Hand()
 
         self.master.bind("<space>", self.capture)
+        self.master.bind("r", self.restartGame)
+        self.master.bind("p", self.switchPlayer)
 
         builder.ElementBuilder(self.master, self)
 
         #self.cap_gest_button.configure(command=self.capture)
-        #self.next_button.configure(command=self.switchPlayer)
-        #self.start_button.configure(command=self.restartGame)
+        self.next_button.configure(command=self.switchPlayer)
+        self.start_button.configure(command=self.restartGame)
 
         self.spawnThreads()
 
@@ -35,14 +37,14 @@ class Interface:
         self.workerThread.start()
         self.master.after(50, self.periodicLoop)
 
-    def switchPlayer(self):
+    def switchPlayer(self, unused = None):
         if (self.app.game is not None):
             self.app.game.switchPlayer()
 
     def capture(self, unused):
         self.startCapture = True
 
-    def restartGame(self):
+    def restartGame(self, unused = None):
         if (self.app.game is not None):
             self.app.game.restartGame()
 
@@ -94,6 +96,7 @@ class Interface:
         q = queue.Queue()
 
         root = Tk()
+        root.geometry("1280x720")
         my_gui = Interface(root, q)
         my_gui.app = app
         root.mainloop()
