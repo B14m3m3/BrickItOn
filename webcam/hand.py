@@ -16,7 +16,7 @@ class Hand(Feeder):
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         res_blue, mask_blue = self.blue_image(frame, hsv)
 
-        #cv2.imshow('mask', mask_blue)
+        cv2.imshow('mask', mask_blue)
         edges = cv2.Canny(res_blue, 100, 200)
         _, contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 

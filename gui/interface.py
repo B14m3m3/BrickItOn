@@ -20,9 +20,9 @@ class Interface:
 
         builder.ElementBuilder(self.master, self)
 
-        self.cap_gest_button.configure(command=self.capture)
-        self.next_button.configure(command=self.switchPlayer)
-        self.start_button.configure(command=self.restartGame)
+        #self.cap_gest_button.configure(command=self.capture)
+        #self.next_button.configure(command=self.switchPlayer)
+        #self.start_button.configure(command=self.restartGame)
 
         self.spawnThreads()
 
@@ -96,6 +96,7 @@ class Interface:
         q = queue.Queue()
 
         root = Tk()
+        #root.wm_attributes('-transparentcolor', root['bg'])
         my_gui = Interface(root, q)
         my_gui.app = app
         root.protocol("WM_DELETE_WINDOW", my_gui.quit)

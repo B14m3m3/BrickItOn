@@ -6,28 +6,34 @@ import webcam.camera as wb
 class ElementBuilder:
     def __init__(self, master, window):
         master.title("Brick-It-On!")
-        master.config(background="#FFFFFF")
+        #master.config(background="#FFFFFF")
+
+        window.background_image = ImageTk.PhotoImage(Image.open('gui/background_clean.png'))
+        window.background_label = Label(master, image=window.background_image)
+        window.background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Top-left window = camera
         window.cam_window = Label(master, image=None)
-        window.cam_window.grid(row=0, column=0)
+        window.cam_window.grid(row=0, column=0, padx = 100, pady = 100)
 
         # Top-right window = instructions
+        '''
         nav_img = ImageTk.PhotoImage(Image.open('gui/nav.png'))
         window.instructions_window = Label(master, text="Instructions", image=nav_img)
         window.instructions_window.imgtk = nav_img
         window.instructions_window.grid(row=0, column=1, padx=50)
+        '''
 
         # Bot-left window = player stats
         window.stats_window = Label(master)
         window.stats_window.grid(row=1, column=0)
 
         # Bot-right window = buttons
-        window.control_window = Label(master)
-        window.control_window.grid(row=1, column=1)
+        window.control_window = Frame(master)
+        window.control_window.grid(row=0, column=1)
 
         # Player stats setup
-        window.player_frame = Frame(window.stats_window)
+        window.player_frame = Frame(window.stats_window,)
         window.player_frame.grid(row=0, column=0)
         window.player1_label = Label(window.player_frame, text='Player 1 score:', font=25)
         window.player1_label.grid(row=0, column=0, sticky='W', padx=75, pady=20)
@@ -40,12 +46,14 @@ class ElementBuilder:
 
         # Control buttons setup
         window.cap_gest_button = Button(window.control_window, text='capture gesture')
-        window.cap_gest_button.pack(side='left', padx=10)
+        window.cap_gest_button.pack(side='left', padx=10, )
         #window.start_button_label = Label(window.instructions_window)
         #window.start_button_label.grid(row=0, column=0, sticky='w')
-        window.start_button = Button(window.control_window, text='start')
-        window.start_button.pack(side='left', padx=10)
+        #window.start_button = Button(window.control_window, text='start')
+        #window.start_button.pack(side='left', padx=10)
         #window.next_button_label = Label(window.instructions_window)
         #window.next_button_label.grid(row=0, column=1)
-        window.next_button = Button(window.control_window, text='next')
+        self.tmpI = Image.open("gui/next.png")
+        self.imgtk2 = ImageTk.PhotoImage(file="gui/next.png")
+        window.next_button = Button(window.control_window, image=self.imgtk2, justify=RIGHT)
         window.next_button.pack(side='left', padx=10)
