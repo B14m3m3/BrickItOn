@@ -25,7 +25,7 @@ class Detector:
             shuffle=False)
 
         prediction = self.classifier.predict(input_fn=predict_input_fn)
-        predicted_classes = [p["classes"] for p in prediction]
+        #predicted_classes = [p["classes"] for p in prediction]
 
         print("Prediction")
         print(prediction)
@@ -34,5 +34,6 @@ class Detector:
             print(p)
 
         # Print all:
-        print("All predictions: ", predicted_classes)
-        return inp.Input(predicted_classes[0])
+        #print("All predictions: ", predicted_classes)
+        #return inp.Input(predicted_classes[0])
+        return None
