@@ -2,27 +2,29 @@ import socket
 
 class Connector:
     
-    def __init__(self):
-        address = "192.168.0.1"
-        port = "44446"
+    def __init__(self, address, port=44446):
+        print("Connecting to robot...")
         self.s = socket.socket()
-        self.s.connect(address, port)
-        print("connection established")
+        self.s.connect((address, port))
+        print("Connection established")
+
+    def write(self, msg):
+        self.s.send(msg.encode())
 
     def forward(self):
-        self.s.send("forward")
+        self.write("forward")
 
     def back(self):
-        self.s.send("back")
+        self.write("back")
 
     def turn_right(self):
-        self.s.send("right")
+        self.write("right")
     
     def turn_left(self):
-        self.s.send("left")
+        self.write("left")
 
     def stop(self):
-        self.s.send("stop")
+        self.write("stop")
 
 if __name__ == '__main__':
     con = Connector()

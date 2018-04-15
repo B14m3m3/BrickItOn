@@ -2,6 +2,8 @@ import webcam as wb
 import brain
 from input import *
 import argparse
+import Communication as comm
+import game
 
 
 class Program:
@@ -9,6 +11,10 @@ class Program:
         # Use command line arguments to decide if we should mock
         self.feeder = (wb.mock.Mock() if flags.mock_camera else wb.hand.Hand())
         self.detector = (brain.mock.Mock() if flags.mock_brain else brain.detector.Detector())
+
+        # Setup game
+        connector = comm.Connector.Connector("192.168.0.1")
+        self.game = game.controller.GameController(connector)
 
     def train(self):
         print("Training...")
@@ -30,13 +36,12 @@ class Program:
         return command
 
     def commandRobot(self, command):
-        print("Commanding robot")
-        pass
+        self.game.onInput(command)
+        self.game.printStats()
 
     def run(self):
         while True:
             command = self.fetchNextCommand()
-            print(command)
 
             if (command != None):
                 self.commandRobot(command)
