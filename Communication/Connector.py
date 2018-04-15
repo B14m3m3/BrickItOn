@@ -17,7 +17,7 @@ class Connector:
 
     def turn_right(self):
         self.s.send("right")
-    
+
     def turn_left(self):
         self.s.send("left")
 
