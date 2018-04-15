@@ -2,7 +2,7 @@ import socket
 
 class Connector:
     
-    def __init__(self, address, port=44446):
+    def __init__(self, address="192.168.0.1", port=44446):
         print("Connecting to robot...")
         self.s = socket.socket()
         self.s.connect((address, port))
