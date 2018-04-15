@@ -1,11 +1,11 @@
-import camera as wb
+import webcam.camera as wb
 import numpy as np
 import cv2
 import time
-import Connector.Connector as con
+import Communication.Connector as con
 
 value = (5,5)
-connection = con.Connector()
+connection = con.Connector("a")
 
 def picture_loop():
     cam = wb.Webcam()

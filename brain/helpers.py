@@ -66,7 +66,7 @@ def cnn_model_fn(features, labels, mode):
     # Logits layer
     # Input Tensor Shape: [batch_size, 1024]
     # Output Tensor Shape: [batch_size, 10]
-    logits = tf.layers.dense(inputs=dropout, units=25)
+    logits = tf.layers.dense(inputs=dropout, units=4)
 
     predictions = {
         # Generate predictions (for PREDICT and EVAL mode)
@@ -114,7 +114,7 @@ def getEstimator():
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn,
-        model_dir="data/models/learn_0.001_drop_0.4"
+        model_dir="data/models/model_abcg2_gpu"
     )
 
     return mnist_classifier
