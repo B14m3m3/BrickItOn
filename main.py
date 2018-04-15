@@ -2,9 +2,13 @@ import webcam as wb
 import brain
 from input import *
 import argparse
+<<<<<<< HEAD
 import Communication as comm
 import game
 
+=======
+import gui
+>>>>>>> 25f80ab26d857fbd28feb775b8ab1ade98efbfaf
 
 class Program:
     def __init__(self):
@@ -55,12 +59,14 @@ parser.add_argument("-mock-camera", help="Mock data from camera", action="store_
 parser.add_argument("-mock-brain", help="Mock brain analysis (tensorflow)", action="store_true")
 parser.add_argument('-ip', help='IP address of robot', default="192.168.0.1")
 parser.add_argument('-port', type=int, help='Port of robot', default=44446)
-
+parser.add_argument("-gui", help="Display GUI", action="store_true")
 flags = parser.parse_args()
 
 prg = Program()
 if flags.train:
     prg.train()
+elif flags.gui:
+    gui.gui.GUI.show()
 elif flags.validate:
     prg.guess()
 else:
