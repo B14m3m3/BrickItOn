@@ -49,7 +49,6 @@ class Program:
     def commandRobot(self, command):
         if self.game is not None:
             self.game.onInput(command)
-            self.game.printStats()
 
     def run(self):
         while True:

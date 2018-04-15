@@ -1,14 +1,13 @@
 import webcam.camera as wb
 import numpy as np
-from PIL import Image
 import cv2
-import sys
 from webcam.feeder import *
 
 
 class Hand(Feeder):
     def __init__(self):
         self.cam = wb.Webcam()
+
     def next(self):
         return self.picture_loop(False)
 
