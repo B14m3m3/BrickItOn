@@ -20,21 +20,43 @@ class GUI:
         imgtk = ImageTk.PhotoImage(image=img)
 
         # Top-left window = camera
-        self.cam = Label(master, image=imgtk)
-        self.cam.imgtk = imgtk
-        self.cam.grid(row=0)
+        self.cam_window = Label(master, image=imgtk)
+        self.cam_window.imgtk = imgtk
+        self.cam_window.grid(row=0, column=0)
 
         # Top-right window = instructions
-        self.instructions = Label(master, text="Instructions")
-        self.instructions.grid(row=0, column=1)
+        self.instructions_window = Label(master, text="Instructions")
+        self.instructions_window.grid(row=0, column=1)
 
         # Bot-left window = player stats
-        self.stats = Label(master, text="Player stats")
-        self.stats.grid(row=1, column=0)
+        self.stats_window = Label(master)
+        self.stats_window.grid(row=1, column=0)
 
         # Bot-right window = buttons
-        self.control = Label(master, text="Buttons for control")
-        self.control.grid(row=1, column=1)
+        self.control_window = Label(master)
+        self.control_window.grid(row=1, column=1)
+
+        # Player stats setup
+        self.player1_label = Label(self.stats_window, text='Player1')
+        self.player1_label.grid(row=0, column=0)
+        self.player1_score = Label(self.stats_window, text='Player1 score')
+        self.player1_score.grid(row=1, column=0)
+        self.player2_label = Label(self.stats_window, text='Player2')
+        self.player2_label.grid(row=0, column=1)
+        self.player2_score = Label(self.stats_window, text='Player2 score')
+        self.player2_score.grid(row=1, column=1)
+
+        # Control buttons setup
+        #self.start_button_label = Label(self.instructions_window)
+        #self.start_button_label.grid(row=0, column=0, sticky='w')
+        self.start_button = Button(self.control_window, text='start', justify='right')
+        self.start_button.pack()
+        #self.next_button_label = Label(self.instructions_window)
+        #self.next_button_label.grid(row=0, column=1)
+        self.next_button = Button(self.control_window, text='next', justify='center')
+        self.next_button.pack()
+        self.cap_gest_button = Button(self.control_window, text='capture gesture', justify='left')
+        self.cap_gest_button.pack()
 
         '''
         self.greet_button = Button(master, text="Greet", command=self.greet)
