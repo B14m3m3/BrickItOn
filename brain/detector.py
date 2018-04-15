@@ -25,13 +25,19 @@ class Detector:
             shuffle=False)
 
         prediction = self.classifier.predict(input_fn=predict_input_fn)
-        #predicted_classes = [p["classes"] for p in prediction]
 
-        print("Prediction")
-        print(prediction)
         for p in prediction:
-            print("P:")
-            print(p)
+
+            char = p["classes"]
+            print("Prediction: ", inp.Input(char))
+            #for key, prob in np.array(p["probabilities"]):
+            #    print(key, ": ", prob, "%")
+            print("A: {0:.2f}".format(p["probabilities"][0]))
+            print("B: {0:.2f}".format(p["probabilities"][1]))
+            print("C: {0:.2f}".format(p["probabilities"][2]))
+            print("D: {0:.2f}".format(p["probabilities"][3]))
+
+        print("")
 
         # Print all:
         #print("All predictions: ", predicted_classes)
