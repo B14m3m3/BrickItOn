@@ -7,8 +7,10 @@ import queue
 import threading
 import gui.builder as builder
 import time
+import numpy as np
 
 imgtk = None
+stop = threading.Event()
 
 class Interface:
     def __init__(self, master, q):
@@ -16,7 +18,9 @@ class Interface:
         self.queue = q
         self.startCapture = False
         self.workerThread = threading.Thread(target=self.worker)
-        self.stop = threading.Event()
+        self.video = vid.Hand()
+
+        self.master.bind("<space>", self.capture)
 
         builder.ElementBuilder(self.master, self)
 
@@ -35,7 +39,7 @@ class Interface:
         if (self.app.game is not None):
             self.app.game.switchPlayer()
 
-    def capture(self):
+    def capture(self, unused):
         self.startCapture = True
 
     def restartGame(self):
@@ -43,23 +47,22 @@ class Interface:
             self.app.game.restartGame()
 
     def worker(self):
-        video = vid.Hand()
+        try:
+            while not stop.is_set():
+                cv2image, countour = self.video.picture()
+                self.img = Image.fromarray(cv2.cvtColor(cv2image, cv2.COLOR_BGR2RGB))
+                imgtk = ImageTk.PhotoImage(self.img)
+                self.clearQueue()
+                self.queue.put(imgtk)
 
-        while not self.stop.is_set():
-            cv2image, countour = video.picture()
-            img = Image.fromarray(cv2image)
-            imgtk = ImageTk.PhotoImage(image=img)
-            self.clearQueue()
-            self.queue.put(imgtk)
+                if self.startCapture:
+                    self.startCapture = False
+                    cropped = self.video.crop_img(cv2image, countour)
+                    self.processImage(cropped)
 
-            if self.startCapture:
-                self.startCapture = False
-                cropped = video.crop_img(cv2image, countour)
-                self.processImage(cropped)
-
-            time.sleep(0.025)
-
-        print("Killing thread")
+                time.sleep(0.025)
+        except:
+            pass
 
     def processImage(self, imgdata):
         self.app.processFromGUI(imgdata)
@@ -84,11 +87,6 @@ class Interface:
 
         self.master.after(25, self.periodicLoop)
 
-    def quit(self):
-        print("Stopping")
-        self.master.quit()
-        self.stop.set()
-
     @staticmethod
     def show(app):
 
@@ -96,14 +94,10 @@ class Interface:
         q = queue.Queue()
 
         root = Tk()
-        #root.wm_attributes('-transparentcolor', root['bg'])
         my_gui = Interface(root, q)
         my_gui.app = app
-        root.protocol("WM_DELETE_WINDOW", my_gui.quit)
         root.mainloop()
-        my_gui.stop.set()
-        print("Stoppig root.mainloop()...")
-
+        stop.set()
 
 if __name__ == "__main__":
     Interface.show(None)

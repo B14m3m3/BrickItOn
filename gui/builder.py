@@ -26,11 +26,11 @@ class ElementBuilder:
 
         # Bot-left window = player stats
         window.stats_window = Label(master)
-        window.stats_window.grid(row=1, column=0)
+        #window.stats_window.grid(row=1, column=0)
 
         # Bot-right window = buttons
         window.control_window = Frame(master)
-        window.control_window.grid(row=0, column=1)
+        #window.control_window.grid(row=0, column=1)
 
         # Player stats setup
         window.player_frame = Frame(window.stats_window,)
@@ -56,4 +56,5 @@ class ElementBuilder:
         self.tmpI = Image.open("gui/next.png")
         self.imgtk2 = ImageTk.PhotoImage(file="gui/next.png")
         window.next_button = Button(window.control_window, image=self.imgtk2, justify=RIGHT)
-        window.next_button.pack(side='left', padx=10)
+        window.next_button.config(image=self.imgtk2, width="20", height="20")
+        window.next_button.pack(side=RIGHT, padx=10)
