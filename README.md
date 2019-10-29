@@ -1,4 +1,8 @@
 # BrickItOn
+Hackaton team project using Machine Learning Tensorflow to recognize gestures and move a Lego Mindstorm robot using Python
+
+# Demo
+![Tensorflow Lego Demo](TensorflowHackaton.gif)
 
 # Setup
 Here is the guide for installing required packages.
